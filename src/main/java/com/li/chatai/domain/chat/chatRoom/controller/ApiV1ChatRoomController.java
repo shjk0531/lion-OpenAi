@@ -16,8 +16,8 @@ public class ApiV1ChatRoomController {
         return roomId + "번 채팅방 조회 완료";
     }
 
-    @PostMapping("")
+    @PostMapping()
     public String createChatRoom() {
-        return "채팅방 조회완료";
+        return "채팅방 생성 완료";
     }
 }

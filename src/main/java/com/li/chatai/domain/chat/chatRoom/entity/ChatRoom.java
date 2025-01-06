@@ -1,9 +1,13 @@
 package com.li.chatai.domain.chat.chatRoom.entity;
 
+import com.li.chatai.domain.chat.chatMessage.entity.ChatMessage;
 import com.li.chatai.domain.global.jpa.BaseEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.util.List;
 
 @Entity
 @Setter
@@ -14,12 +18,8 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class ChatRoom extends BaseEntity {
     private String roomName;
-    private String roomDescription;
-    private String roomCreator;
     private String roomPassword;
-    private String roomStatus;
-    private String roomType;
-    private String createdBy;
-    private String updatedBy;
-    private String deletedBy;
+
+    @OneToMany
+    private List<ChatMessage> chatMessages;
 }
