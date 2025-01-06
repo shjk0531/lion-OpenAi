@@ -1,26 +1,23 @@
 package com.li.chatai.domain.chat.chatRoom.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/api/v1/chat/rooms")
 public class ApiV1ChatRoomController {
 
     @GetMapping()
     public String chatRooms() {
-        return "chatRooms";
+        return "채팅방 목록 조회완료";
     }
 
     @GetMapping("/{roomId}")
-    public String chatRoomDetail() {
-        return "chatRoomDetail";
+    public String chatRoomDetail(@PathVariable("roomId") Long roomId) {
+        return roomId + "번 채팅방 조회 완료";
     }
 
     @PostMapping("")
     public String createChatRoom() {
-        return "createChatRoom";
+        return "채팅방 조회완료";
     }
 }

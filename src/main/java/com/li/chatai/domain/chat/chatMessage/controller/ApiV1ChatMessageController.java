@@ -1,21 +1,18 @@
 package com.li.chatai.domain.chat.chatMessage.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/api/v1/chat/rooms")
 public class ApiV1ChatMessageController {
 
     @GetMapping("/{roomId}/messages")
-    public String chatMessage() {
-        return "chatRooms";
+    public String chatMessage(@PathVariable("roomId") Long roomId) {
+        return "채팅방 메시지 생성 완료";
     }
 
     @PostMapping("/{roomId}/messages")
-    public String createChatMessages() {
-        return "createChatRoom";
+    public String createChatMessages(@PathVariable("roomId") Long roomId, @RequestParam("afterChatMessageId") Long messagedId) {
+        return roomId + "번채팅방 메시지 목록 조회 완료 id : " + messagedId;
     }
 }
