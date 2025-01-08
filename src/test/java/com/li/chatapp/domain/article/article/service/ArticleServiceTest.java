@@ -1,12 +1,14 @@
 package com.li.chatapp.domain.article.article.service;
 
 import com.li.chatapp.domain.article.article.entity.Article;
+import com.li.chatapp.domain.member.member.service.MemberService;
 import com.li.chatapp.global.rsData.RsData;
 import com.li.chatapp.domain.member.member.entity.Member;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +21,8 @@ public class ArticleServiceTest {
 
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private MemberService memberService;
 
     @DisplayName("글 쓰기")
     @Test
@@ -56,4 +60,16 @@ public class ArticleServiceTest {
 
         assertThat(article_.getTitle()).isEqualTo("수정된 제목");
     }
+
+    @DisplayName("2번 글에 댓글들을 추가한다")
+    @Test
+    @Rollback(false)
+    void t5() {
+        Member member = memberService.findById(1L).get();
+        Article article = articleService.findById(2L).get();
+
+        article.addComment(member, "댓글입니다.");
+    }
+
+
 }

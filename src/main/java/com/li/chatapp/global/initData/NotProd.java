@@ -35,11 +35,27 @@ public class NotProd {
             Member member2 = memberService.join("user2", "1111").getData();
             Member member3 = memberService.join("user3", "2222").getData();
 
-            Article article = articleService.write(member1.getId(), "title1", "content1").getData();
+            Article article1 = articleService.write(member1.getId(), "title1", "content1").getData();
             Article article2 = articleService.write(member1.getId(), "title2", "content2").getData();
 
             Article article3 = articleService.write(member2.getId(), "title3", "content3").getData();
             Article article4 = articleService.write(member2.getId(), "title4", "content4").getData();
+
+            article1.addComment(member1, "댓글1");
+            article1.addComment(member1, "댓글2");
+
+            article2.addComment(member1, "댓글3");
+            article2.addComment(member1, "댓글4");
+            article2.addComment(member1, "댓글5");
+
+            article3.addComment(member1, "댓글5");
+            article3.addComment(member1, "댓글6");
+            article3.addComment(member1, "댓글7");
+            article3.addComment(member1, "댓글8");
+            article3.addComment(member1, "댓글9");
+            article3.addComment(member1, "댓글10");
+            article3.addComment(member1, "댓글11");
+            article3.addComment(member1, "댓글12");
 
             System.out.println("This is not a production environment");
         };
