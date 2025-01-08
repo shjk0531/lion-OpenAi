@@ -27,4 +27,8 @@ public class ChatRoomService {
 
         return chatRoomRepository.findAll();
     }
+
+    public ChatRoom getChatRoom(Long roomId) {
+        return chatRoomRepository.findById(roomId).get();
+    }
 }

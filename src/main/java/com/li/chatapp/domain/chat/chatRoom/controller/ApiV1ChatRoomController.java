@@ -26,8 +26,10 @@ public class ApiV1ChatRoomController {
     }
 
     @GetMapping("/{roomId}")
-    public String chatRoomDetail(@PathVariable("roomId") Long roomId) {
-        return roomId + "번 채팅방 조회 완료";
+    public ChatRoom chatRoomDetail(@PathVariable("roomId") Long roomId) {
+        ChatRoom chatRoom = chatRoomService.getChatRoom(roomId);
+        return chatRoom;
+
     }
 
     @PostMapping()
