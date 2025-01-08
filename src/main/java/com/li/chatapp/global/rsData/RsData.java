@@ -1,4 +1,4 @@
-package com.li.chatapp.domain.global.rsData;
+package com.li.chatapp.global.rsData;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,7 @@
 package com.li.chatapp.domain.chat.chatMessage.entity;
 
 import com.li.chatapp.domain.chat.chatRoom.entity.ChatRoom;
-import com.li.chatapp.domain.global.jpa.BaseEntity;
+import com.li.chatapp.global.jpa.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.*;

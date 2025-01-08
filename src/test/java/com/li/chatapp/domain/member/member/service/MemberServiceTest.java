@@ -1,6 +1,6 @@
 package com.li.chatapp.domain.member.member.service;
 
-import com.li.chatapp.domain.global.rsData.RsData;
+import com.li.chatapp.global.rsData.RsData;
 import com.li.chatapp.domain.member.member.entity.Member;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.li.chatapp.domain.global.initData;
+package com.li.chatapp.global.initData;
 
 import com.li.chatapp.domain.article.article.entity.Article;
 import com.li.chatapp.domain.article.article.service.ArticleService;
@@ -6,6 +6,8 @@ import com.li.chatapp.domain.chat.chatMessage.entity.ChatMessage;
 import com.li.chatapp.domain.chat.chatMessage.service.ChatMessageService;
 import com.li.chatapp.domain.chat.chatRoom.entity.ChatRoom;
 import com.li.chatapp.domain.chat.chatRoom.service.ChatRoomService;
+import com.li.chatapp.domain.member.member.entity.Member;
+import com.li.chatapp.domain.member.member.service.MemberService;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,11 +16,11 @@ import org.springframework.context.annotation.Profile;
 import java.util.stream.IntStream;
 
 @Configuration
-@Profile("dev")
+@Profile("!prod")
 public class NotProd {
 
     @Bean
-    public ApplicationRunner initNotProd(ChatRoomService chatRoomService, ChatMessageService chatMessageService, ArticleService articleService) {
+    public ApplicationRunner initNotProd(ChatRoomService chatRoomService, ChatMessageService chatMessageService, ArticleService articleService, MemberService memberService) {
         return args -> {
             ChatRoom chatRoom1 = chatRoomService.create("room1");
             ChatRoom chatRoom2 = chatRoomService.create("room2");
@@ -29,7 +31,15 @@ public class NotProd {
                     }
                     );
 
-            Article article = articleService.write(1L, "title1", "content1").getData();
+            Member member1 = memberService.join("user1", "0000").getData();
+            Member member2 = memberService.join("user2", "1111").getData();
+            Member member3 = memberService.join("user3", "2222").getData();
+
+            Article article = articleService.write(member1.getId(), "title1", "content1").getData();
+            Article article2 = articleService.write(member1.getId(), "title2", "content2").getData();
+
+            Article article3 = articleService.write(member2.getId(), "title3", "content3").getData();
+            Article article4 = articleService.write(member2.getId(), "title4", "content4").getData();
 
             System.out.println("This is not a production environment");
         };

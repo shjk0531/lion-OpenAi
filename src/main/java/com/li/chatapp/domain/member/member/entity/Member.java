@@ -1,6 +1,6 @@
 package com.li.chatapp.domain.member.member.entity;
 
-import com.li.chatapp.domain.global.jpa.BaseEntity;
+import com.li.chatapp.global.jpa.BaseEntity;
 import jakarta.persistence.Entity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;

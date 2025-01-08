@@ -1,4 +1,4 @@
-package com.li.chatapp.domain.global.jpa;
+package com.li.chatapp.global.jpa;
 
 import groovy.transform.EqualsAndHashCode;
 import groovy.transform.ToString;

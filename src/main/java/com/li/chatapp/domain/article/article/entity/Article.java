@@ -1,6 +1,6 @@
 package com.li.chatapp.domain.article.article.entity;
 
-import com.li.chatapp.domain.global.jpa.BaseEntity;
+import com.li.chatapp.global.jpa.BaseEntity;
 import com.li.chatapp.domain.member.member.entity.Member;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -15,8 +15,8 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 public class Article extends BaseEntity {
-    @ManyToOne
-    private Member member;
     private String title;
     private String content;
+    @ManyToOne
+    private Member author;
 }
