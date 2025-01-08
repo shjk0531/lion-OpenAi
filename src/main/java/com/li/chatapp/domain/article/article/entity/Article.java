@@ -36,4 +36,8 @@ public class Article extends BaseEntity {
 
         comments.add(articleComment);
     }
+
+    public void removeComment(ArticleComment lastComment) {
+        comments.remove(lastComment);
+    }
 }

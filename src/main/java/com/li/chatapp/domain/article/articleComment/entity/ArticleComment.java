@@ -22,4 +22,8 @@ public class ArticleComment extends BaseEntity {
     private Article article;
     @ManyToOne
     private Member member;
+
+    public String getBody() {
+        return content;
+    }
 }

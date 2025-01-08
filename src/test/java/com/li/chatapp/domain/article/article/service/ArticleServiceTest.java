@@ -1,9 +1,10 @@
 package com.li.chatapp.domain.article.article.service;
 
 import com.li.chatapp.domain.article.article.entity.Article;
+import com.li.chatapp.domain.article.articleComment.entity.ArticleComment;
+import com.li.chatapp.domain.member.member.entity.Member;
 import com.li.chatapp.domain.member.member.service.MemberService;
 import com.li.chatapp.global.rsData.RsData;
-import com.li.chatapp.domain.member.member.entity.Member;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
-@ActiveProfiles("test")
+@ActiveProfiles({"test", "dev"})
 @Transactional
 public class ArticleServiceTest {
 
@@ -66,9 +67,29 @@ public class ArticleServiceTest {
     @Rollback(false)
     void t5() {
         Member member = memberService.findById(1L).get();
-        Article article = articleService.findById(2L).get();
+        Article article = articleService.findById(1L).get();
 
         article.addComment(member, "댓글입니다.");
+    }
+
+    @DisplayName("1번 글의 댓글들을 수정한다.")
+    @Test
+    void t6() {
+        Article article = articleService.findById(1L).get();
+
+        article.getComments().forEach(comment -> {
+            articleService.modifyComment(comment, comment.getBody() + "!!");
+        });
+    }
+
+    @DisplayName("1번 글의 댓글 중 마지막 것을 삭제한다.")
+    @Test
+    void t7() {
+        Article article = articleService.findById(1L).get();
+
+        ArticleComment lastComment = article.getComments().getLast();
+
+        article.removeComment(lastComment);
     }
 
 

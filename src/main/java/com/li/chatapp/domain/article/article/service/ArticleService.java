@@ -2,6 +2,7 @@ package com.li.chatapp.domain.article.article.service;
 
 import com.li.chatapp.domain.article.article.entity.Article;
 import com.li.chatapp.domain.article.article.repository.ArticleRepository;
+import com.li.chatapp.domain.article.articleComment.entity.ArticleComment;
 import com.li.chatapp.domain.member.member.entity.Member;
 import com.li.chatapp.global.rsData.RsData;
 import lombok.RequiredArgsConstructor;
@@ -38,5 +39,10 @@ public class ArticleService {
         article.setTitle(title);
         article.setContent(content);
         articleRepository.save(article);
+    }
+
+        public void modifyComment(ArticleComment comment, String newContent) {
+        comment.setContent(newContent);
+
     }
 }
