@@ -6,7 +6,7 @@ spring:
     include: secret
   logging:
     level:
-      com.ll.chatai: DEBUG
+      com.ll.chatapp: DEBUG
       org.hibernate.orm.jdbc.bind: TRACE
       org.hibernate.orm.jdbc.extract: TRACE
       org.springframework.transaction.interceptor: TRACE
