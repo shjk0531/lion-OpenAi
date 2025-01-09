@@ -1,6 +1,6 @@
 package com.li.chatapp.global.jpa;
 
-import groovy.transform.ToString;
+
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
