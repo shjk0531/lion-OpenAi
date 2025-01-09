@@ -27,4 +27,8 @@ public class MemberService  {
     public Optional<Member> findById(long memberId) {
         return memberRepository.findById(memberId);
     }
+
+    public Member findByName(String userName) {
+        return memberRepository.findByName(userName);
+    }
 }
