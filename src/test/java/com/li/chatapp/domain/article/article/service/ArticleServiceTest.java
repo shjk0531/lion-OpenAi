@@ -2,6 +2,8 @@ package com.li.chatapp.domain.article.article.service;
 
 import com.li.chatapp.domain.article.article.entity.Article;
 import com.li.chatapp.domain.article.articleComment.entity.ArticleComment;
+import com.li.chatapp.domain.article.articleComment.service.ArticleCommentService;
+import com.li.chatapp.domain.article.articleTag.service.ArticleTagService;
 import com.li.chatapp.domain.member.member.entity.Member;
 import com.li.chatapp.domain.member.member.service.MemberService;
 import com.li.chatapp.global.rsData.RsData;
@@ -12,6 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -24,6 +28,10 @@ public class ArticleServiceTest {
     private ArticleService articleService;
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private ArticleCommentService articleCommentService;
+    @Autowired
+    private ArticleTagService articleTagService;
 
     @DisplayName("글 쓰기")
     @Test
@@ -92,5 +100,14 @@ public class ArticleServiceTest {
         article.removeComment(lastComment);
     }
 
+    @DisplayName("게시물 별 댓글 수 출력")
+    @Test
+    void t8() {
+        List<Article> articles = articleService.findAll();
+        articles.forEach(article -> {
+            System.out.println("게시물 번호: " + article.getId());
+            System.out.println("댓글 수: " + article.getComments().size());
+        });
+    }
 
 }

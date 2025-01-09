@@ -8,6 +8,7 @@ import com.li.chatapp.global.rsData.RsData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,8 +42,14 @@ public class ArticleService {
         articleRepository.save(article);
     }
 
-        public void modifyComment(ArticleComment comment, String newContent) {
+    public void modifyComment(ArticleComment comment, String newContent) {
         comment.setContent(newContent);
 
+    }
+
+    public List<Article> findAll() {
+
+
+        return articleRepository.findAll();
     }
 }
