@@ -1,0 +1,34 @@
+package com.li.chatapp.domain.member.member.service;
+
+import com.li.chatapp.global.rsData.RsData;
+import com.li.chatapp.domain.member.member.entity.Member;
+import com.li.chatapp.domain.member.member.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class MemberService  {
+    private final MemberRepository memberRepository;
+
+    public RsData<Member> join(String name, String password) {
+        Member member = Member.builder()
+                .name(name)
+                .password(password)
+                .build();
+
+        memberRepository.save(member);
+
+        return RsData.of("200", "%s 님 가입을 환영합니다.".formatted(name), member);
+    }
+
+    public Optional<Member> findById(long memberId) {
+        return memberRepository.findById(memberId);
+    }
+
+    public Member findByName(String userName) {
+        return memberRepository.findByName(userName);
+    }
+}
