@@ -6,6 +6,8 @@ import com.li.chatapp.domain.article.articleComment.entity.ArticleComment;
 import com.li.chatapp.domain.member.member.entity.Member;
 import com.li.chatapp.global.rsData.RsData;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,5 +53,9 @@ public class ArticleService {
 
 
         return articleRepository.findAll();
+    }
+
+    public Page<Article> search(Pageable pageable) {
+        return articleRepository.findAll(pageable);
     }
 }
