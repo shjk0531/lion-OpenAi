@@ -1,12 +1,8 @@
 package com.li.chatapp.global.jpa;
 
-import groovy.transform.EqualsAndHashCode;
 import groovy.transform.ToString;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -20,11 +16,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  // 기본 생성자 생성, protected 접근 제어
 @AllArgsConstructor(access = AccessLevel.PROTECTED) // 모든 필드 값을 파라미터로 받는 생성자 생성
 @EntityListeners(AuditingEntityListener.class)      // JPA Auditing 기능 사용
-@ToString           // 
-@EqualsAndHashCode  // equals와 hashCode 메서드 자동 생성
+@ToString           // toString 메서드 자동 생성
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
     @CreatedDate
     @Column(updatable = false, nullable = false)
