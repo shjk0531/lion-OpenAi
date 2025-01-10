@@ -45,9 +45,9 @@ public class NotProd {
                         }
                 );
 
-                Member member1 = memberService.join("user1", "0000").getData();
-                Member member2 = memberService.join("user2", "1111").getData();
-                Member member3 = memberService.join("user3", "2222").getData();
+                Member member1 = memberService.join("user1", "0000");
+                Member member2 = memberService.join("user2", "1111");
+                Member member3 = memberService.join("user3", "2222");
 
                 Article article1 = articleService.write("title1", "content1");
                 Article article2 = articleService.write("title2", "content2");
