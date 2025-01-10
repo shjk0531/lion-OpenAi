@@ -23,6 +23,7 @@ public class ApiSecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/api/*/articles").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/*/articles/*").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/*/members/login").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/*/members/*").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .csrf(csrf -> csrf.disable()) // CSRF 비활성화

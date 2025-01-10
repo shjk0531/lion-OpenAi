@@ -1,6 +1,7 @@
 package com.li.chatapp.global.jwt;
 
 import com.li.chatapp.domain.member.member.entity.Member;
+import com.li.chatapp.global.util.Ut;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -53,10 +54,21 @@ public class JwtProvider {
         Date accessTokenExpiration = new Date(now + seconds * 1000);
 
         return Jwts.builder()
-                .setClaims(claims)
+                .claim("body", Ut.json.toStr(claims))
                 .setIssuedAt(new Date())
                 .setExpiration(accessTokenExpiration)
-                .signWith(_getSecretKey(), SignatureAlgorithm.HS256)
+                .signWith(getSecretKey(), SignatureAlgorithm.HS512)
                 .compact();
+    }
+
+    // 클레임 정보 받아오기
+    public Map getClaims(String token) {
+        String body = Jwts.parserBuilder()
+                .setSigningKey(getSecretKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get("body", String.class);
+        return Ut.toMap(body);
     }
 }

@@ -7,10 +7,13 @@ import com.li.chatapp.domain.member.member.service.MemberService;
 import com.li.chatapp.global.jwt.JwtProvider;
 import com.li.chatapp.global.rsData.RsData;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/members")
@@ -48,7 +51,42 @@ public class ApiV1MemberController {
         System.out.println("logout");
     }
     @GetMapping("/me")
-    public void me() {
-        System.out.println("me");
+    public RsData<MemberDto> me(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+
+        if (cookies == null || cookies.length == 0) {
+            return new RsData<>(
+                    "404",
+                    "쿠키가 존재하지 않습니다. 로그인 상태가 아닙니다.",
+                    null
+            );
+        }
+
+        String accessToken = "";
+
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("accessToken")) {
+                accessToken = cookie.getValue();
+            }
+        }
+
+        if (accessToken.isEmpty()) {
+            return new RsData<>(
+                    "401",
+                    "Access Token이 없습니다. 다시 로그인하세요.",
+                    null
+            );
+        }
+
+        Map<String, Object> claims = jwtProvider.getClaims(accessToken);
+        String name = (String) claims.get("name");
+
+        Member member = this.memberService.getMemberByName(name);
+
+        return new RsData<>(
+                "200",
+                "내 정보 조회에 성공하였습니다.",
+                new MemberDto(member)
+        );
     }
 }
