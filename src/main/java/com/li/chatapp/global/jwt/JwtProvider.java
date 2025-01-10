@@ -71,4 +71,17 @@ public class JwtProvider {
                 .get("body", String.class);
         return Ut.toMap(body);
     }
+
+    // 토큰 유효성 검증
+    public boolean validate(String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(getSecretKey())
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
