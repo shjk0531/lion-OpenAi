@@ -52,4 +52,8 @@ public class ArticleService {
 
         return articleRepository.findAll();
     }
+
+    public void delete(Long id) {
+        this.articleRepository.deleteById(id);
+    }
 }

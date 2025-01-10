@@ -1,5 +1,6 @@
 package com.li.chatapp.domain.article.article.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.li.chatapp.domain.article.articleComment.entity.ArticleComment;
 import com.li.chatapp.domain.article.articleTag.entity.ArticleTag;
 import com.li.chatapp.domain.member.member.entity.Member;
@@ -22,14 +23,18 @@ import java.util.stream.Collectors;
 public class Article extends BaseEntity {
     private String title;
     private String content;
+
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private Member author;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     @ToString.Exclude
     private List<ArticleComment> comments = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     @Builder.Default
     @ToString.Exclude
