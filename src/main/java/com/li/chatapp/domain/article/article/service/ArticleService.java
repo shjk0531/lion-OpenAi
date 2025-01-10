@@ -33,10 +33,11 @@ public class ArticleService {
         return optionalArticle;
     }
 
-    public void modify(Article article, String title, String content) {
+    public Article modify(Article article, String title, String content) {
         article.setTitle(title);
         article.setContent(content);
         articleRepository.save(article);
+        return article;
     }
 
     public void modifyComment(ArticleComment comment, String newContent) {
