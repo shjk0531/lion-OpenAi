@@ -47,6 +47,14 @@ public class ApiV1MemberController {
 
         response.addCookie(cookie);
 
+        String refreshToken = member.getRefreshToken();
+        Cookie refreshCookie = new Cookie("refreshToken", refreshToken);
+        refreshCookie.setHttpOnly(true);
+        refreshCookie.setPath("/");
+        refreshCookie.setSecure(true);
+        refreshCookie.setMaxAge(60 * 60);
+        response.addCookie(refreshCookie);
+
         return new RsData<>(
                 "200",
                 "로그인에 성공하였습니다."
