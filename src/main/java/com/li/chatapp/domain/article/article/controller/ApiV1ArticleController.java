@@ -8,6 +8,8 @@ import com.li.chatapp.domain.article.article.service.ArticleService;
 import com.li.chatapp.global.rsData.RsData;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,14 +36,14 @@ public class ApiV1ArticleController {
     }
 
     @PostMapping
-    public RsData<ArticleDto> writeArticle(@RequestBody ArticleWriteRequest articleWriteRequest) {
+    public ResponseEntity<RsData<ArticleDto>> writeArticle(@RequestBody ArticleWriteRequest articleWriteRequest) {
         Article article = articleService.write(articleWriteRequest.getTitle(), articleWriteRequest.getContent());
 
-        return new RsData<>(
+        return ResponseEntity.status(HttpStatus.CREATED).body(new RsData<>(
                 "200",
                 "게시글 작성에 성공하였습니다.",
                 new ArticleDto(article)
-        );
+        ));
     }
 
     @PatchMapping({"/{id}"})
