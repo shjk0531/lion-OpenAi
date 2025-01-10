@@ -17,23 +17,25 @@ public class ApiSecurityConfig {
     private final JwtAuthorizationFilter jwtAuthorizationFilter;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
+
         http
                 .securityMatcher("/api/**")
-                .authorizeHttpRequests(
-                        authorizeRequests -> authorizeRequests
-                                .requestMatchers(HttpMethod.GET, "/api/*/articles").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/*/articles/*").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/api/*/members/login").permitAll()
-                                .anyRequest().authenticated()
+                .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers(HttpMethod.GET, "/api/*/articles").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/*/articles/*").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/*/members/login").permitAll() // 로그인은 누구나 가능, post 요청만 허용
+                        .requestMatchers(HttpMethod.GET, "/api/*/members/logout").permitAll() // 로그인은 누구나 가능, post 요청만 허용
+                        .anyRequest().authenticated()
                 )
-                .csrf(csrf -> csrf.disable()) // CSRF 비활성화
-                .httpBasic(httpBasic -> httpBasic.disable()) // HTTP Basic 비활성화
-                .formLogin(formLogin -> formLogin.disable()) // Form Login 비활성화
+                .csrf(csrf -> csrf.disable()) // csrf 토큰 끄기
+                .httpBasic(httpBasic -> httpBasic.disable()) // httpBasic 로그인 방식 끄기
+                .formLogin(formLogin -> formLogin.disable()) // 폼 로그인 방식 끄기
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtAuthorizationFilter,
+                .addFilterBefore(
+                        jwtAuthorizationFilter, //엑세스 토큰을 이용한 로그인 처리
                         UsernamePasswordAuthenticationFilter.class
-                        ); // 세션 관리 비활성화
+                );
         return http.build();
     }
 }

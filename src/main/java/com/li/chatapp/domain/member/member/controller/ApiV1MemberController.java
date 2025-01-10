@@ -32,6 +32,7 @@ public class ApiV1MemberController {
                 new MemberDto(member)
         );
     }
+
     @PostMapping("/login")
     public RsData<Void> login(@Valid @RequestBody MemberRequest memberRequest, HttpServletResponse response) {
 
@@ -60,9 +61,23 @@ public class ApiV1MemberController {
                 "로그인에 성공하였습니다."
         );
     }
+
     @GetMapping("/logout")
-    public void logout() {
-        System.out.println("logout");
+    public RsData<Void> logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie("accessToken", null);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+
+        Cookie refreshCookie = new Cookie("refreshToken", null);
+        refreshCookie.setPath("/");
+        refreshCookie.setMaxAge(0);
+        response.addCookie(refreshCookie);
+
+        return new RsData<>(
+                "200",
+                "로그아웃에 성공하였습니다."
+        );
     }
     @GetMapping("/me")
     public RsData<MemberDto> me(HttpServletRequest request) {
