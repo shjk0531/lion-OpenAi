@@ -2,6 +2,7 @@ package com.li.chatapp.domain.member.member.service;
 
 import com.li.chatapp.domain.member.member.entity.Member;
 import com.li.chatapp.domain.member.member.repository.MemberRepository;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,9 @@ public class MemberService  {
 
     public Member findByName(String userName) {
         return memberRepository.findByName(userName);
+    }
+
+    public Member getMemberByName(@NotBlank String name) {
+        return memberRepository.findByName(name);
     }
 }
