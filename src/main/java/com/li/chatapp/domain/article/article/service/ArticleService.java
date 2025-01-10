@@ -4,7 +4,6 @@ import com.li.chatapp.domain.article.article.entity.Article;
 import com.li.chatapp.domain.article.article.repository.ArticleRepository;
 import com.li.chatapp.domain.article.articleComment.entity.ArticleComment;
 import com.li.chatapp.domain.member.member.entity.Member;
-import com.li.chatapp.global.rsData.RsData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,16 +16,14 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
 
-    public RsData<Article> write(Long memberId, String title, String content) {
+    public Article write(String title, String content) {
         Article article = Article.builder()
-                .author(Member.builder().id(memberId).build())
+                .author(Member.builder().id(1L).build())
                 .title(title)
                 .content(content)
                 .build();
 
-        articleRepository.save(article);
-
-        return RsData.of("200", "글 작성 성공", article);
+        return articleRepository.save(article);
     }
 
 
