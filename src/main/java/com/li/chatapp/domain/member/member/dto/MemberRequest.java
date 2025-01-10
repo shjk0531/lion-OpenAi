@@ -2,14 +2,16 @@ package com.li.chatapp.domain.member.member.dto;
 
 import com.li.chatapp.domain.member.member.entity.Member;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
+import lombok.*;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class MemberRequest {
     @NotBlank
-    private final String name;
+    private String name;
     @NotBlank
-    private final String password;
+    private String password;
 
     public MemberRequest(Member member) {
         this.name = member.getName();

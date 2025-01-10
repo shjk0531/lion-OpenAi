@@ -1,6 +1,8 @@
 package com.li.chatapp.domain.member.member.controller;
 
+import com.li.chatapp.domain.member.member.dto.MemberDto;
 import com.li.chatapp.domain.member.member.dto.MemberRequest;
+import com.li.chatapp.domain.member.member.entity.Member;
 import com.li.chatapp.domain.member.member.service.MemberService;
 import com.li.chatapp.global.rsData.RsData;
 import jakarta.validation.Valid;
@@ -14,13 +16,13 @@ public class ApiV1MemberController {
     private final MemberService memberService;
 
     @PostMapping("/signup")
-    public RsData<String> join(@Valid @RequestBody MemberRequest memberRequest) {
-        memberService.join(memberRequest.getName(), memberRequest.getPassword());
+    public RsData<MemberDto> join(@Valid @RequestBody MemberRequest memberRequest) {
+        Member member = memberService.join(memberRequest.getName(), memberRequest.getPassword());
 
-        return RsData.of(
+        return new RsData(
                 "200",
                 "회원가입에 성공하였습니다.",
-                memberRequest.getName()
+                new MemberDto(member)
         );
     }
     @PostMapping("/login")
