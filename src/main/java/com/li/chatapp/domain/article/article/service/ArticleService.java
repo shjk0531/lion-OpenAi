@@ -6,6 +6,7 @@ import com.li.chatapp.domain.article.articleComment.entity.ArticleComment;
 import com.li.chatapp.domain.member.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,6 +41,7 @@ public class ArticleService {
         return article;
     }
 
+    @Transactional
     public void modifyComment(ArticleComment comment, String newContent) {
         comment.setContent(newContent);
 
@@ -51,6 +53,7 @@ public class ArticleService {
         return articleRepository.findAll();
     }
 
+    @Transactional
     public void delete(Long id) {
         this.articleRepository.deleteById(id);
     }
