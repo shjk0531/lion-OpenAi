@@ -6,6 +6,8 @@ import com.li.chatapp.domain.member.member.entity.Member;
 import com.li.chatapp.domain.member.member.service.MemberService;
 import com.li.chatapp.global.jwt.JwtProvider;
 import com.li.chatapp.global.rsData.RsData;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -28,16 +30,17 @@ public class ApiV1MemberController {
         );
     }
     @PostMapping("/login")
-    public RsData<String> login(@Valid @RequestBody MemberRequest memberRequest) {
+    public RsData<Void> login(@Valid @RequestBody MemberRequest memberRequest, HttpServletResponse response) {
 
         Member member = memberService.getMemberByName(memberRequest.getName());
 
         String token = jwtProvider.genAccessToken(member);
 
+        response.addCookie(new Cookie("accessToken", token));
+
         return new RsData<>(
                 "200",
-                "로그인에 성공하였습니다.",
-                token
+                "로그인에 성공하였습니다."
         );
     }
     @GetMapping("/logout")
