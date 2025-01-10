@@ -38,7 +38,7 @@ public class ApiV1ArticleController {
         Article article = articleService.write(articleWriteRequest.getTitle(), articleWriteRequest.getContent());
 
         return new RsData<>(
-                "200",
+                "201",
                 "게시글 작성에 성공하였습니다.",
                 new ArticleDto(article)
         );
